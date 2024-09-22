@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import axios from 'axios'
-const apiUrl = import.meta.env.VITE_API_URL;
 
 export const useProductStore = create((set) => ({
     products: [],
@@ -8,12 +7,12 @@ export const useProductStore = create((set) => ({
     createProduct: async (newProduct) => {
          if(!newProduct.name || !newProduct.image || !newProduct.price) {
              return {
-                success: false,
+                sucess: false,
                 message: "All fields are required!"
              }
          }
          
-         const res = await axios.post(`${apiUrl}/api/products`, newProduct)
+         const res = await axios.post('https://product-crud-mern.onrender.com/api/products', newProduct)
 
          set(state => ({
             products: [...state.products, res.data]
@@ -25,14 +24,14 @@ export const useProductStore = create((set) => ({
          }
     },
     fetchProducts: async () => {
-        const res = await axios.get(`${apiUrl}/api/products`)
-        console.log('API URL:', apiUrl);
+        const res = await axios.get('https://product-crud-mern.onrender.com/api/products')
+        
         set(state => ({
             products: res.data.data
         }))
     },
     deleteProduct: async (pid) => {
-        const res = await axios.delete(`${apiUrl}/api/products/${pid}`)
+        const res = await axios.delete(`https://product-crud-mern.onrender.com/api/products/${pid}`)
         if (!res.data.success) {
             return { 
                 success: false, 
@@ -51,7 +50,7 @@ export const useProductStore = create((set) => ({
         }
     },
     updateProduct: async (pid, updatedProduct) => {
-        const res = await axios.put(`${apiUrl}/api/products/${pid}`, updatedProduct)
+        const res = await axios.put(`https://product-crud-mern.onrender.com/api/products/${pid}`, updatedProduct)
 
         if (!res.data.success) {
             return { 
