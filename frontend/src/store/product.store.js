@@ -32,7 +32,7 @@ export const useProductStore = create((set) => ({
     fetchProducts: async () => {
         const res = await axios.get('https://product-crud-mern.onrender.com/api/products')
         
-        set(state => ({
+        set(({
             products: res.data.data
         }))
     },
