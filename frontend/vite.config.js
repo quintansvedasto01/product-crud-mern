@@ -11,8 +11,12 @@ export default defineConfig({
   server:{
     proxy:{
       "/api":{
-        target: apiUrl
+        target: apiUrl,
+        changeOrigin: true, // Adjust if needed
       }
     }
-  }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000, // Set the limit to 1000 kB (1 MB) or any size you prefer
+  },
 })

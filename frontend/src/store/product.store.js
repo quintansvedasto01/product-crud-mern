@@ -26,7 +26,7 @@ export const useProductStore = create((set) => ({
     },
     fetchProducts: async () => {
         const res = await axios.get(`${apiUrl}/api/products`)
-        
+        console.log('API URL:', apiUrl);
         set(state => ({
             products: res.data.data
         }))
