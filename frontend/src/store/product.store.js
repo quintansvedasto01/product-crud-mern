@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import axios from 'axios'
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const useProductStore = create((set) => ({
     products: [],
@@ -7,12 +8,12 @@ export const useProductStore = create((set) => ({
     createProduct: async (newProduct) => {
          if(!newProduct.name || !newProduct.image || !newProduct.price) {
              return {
-                sucess: false,
+                success: false,
                 message: "All fields are required!"
              }
          }
          
-         const res = await axios.post('http://localhost:5000/api/products', newProduct)
+         const res = await axios.post(`${apiUrl}/api/products`, newProduct)
 
          set(state => ({
             products: [...state.products, res.data]
@@ -24,14 +25,14 @@ export const useProductStore = create((set) => ({
          }
     },
     fetchProducts: async () => {
-        const res = await axios.get('http://localhost:5000/api/products')
+        const res = await axios.get(`${apiUrl}/api/products`)
         
         set(state => ({
             products: res.data.data
         }))
     },
     deleteProduct: async (pid) => {
-        const res = await axios.delete(`http://localhost:5000/api/products/${pid}`)
+        const res = await axios.delete(`${apiUrl}/api/products/${pid}`)
         if (!res.data.success) {
             return { 
                 success: false, 
@@ -50,7 +51,7 @@ export const useProductStore = create((set) => ({
         }
     },
     updateProduct: async (pid, updatedProduct) => {
-        const res = await axios.put(`http://localhost:5000/api/products/${pid}`, updatedProduct)
+        const res = await axios.put(`${apiUrl}/api/products/${pid}`, updatedProduct)
 
         if (!res.data.success) {
             return { 
