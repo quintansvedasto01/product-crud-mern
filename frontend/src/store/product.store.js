@@ -1,12 +1,6 @@
 import { create } from 'zustand'
 import axios from 'axios'
 
-// Retrieve the API URL from environment variables
-const apiUrl = import.meta.env.VITE_API_URL; 
-
-// Log the API URL to the console
-console.log('API URL VIA IMPORT:', apiUrl);
-
 export const useProductStore = create((set) => ({
     products: [],
     setProducts: (products) => set({ products }),
